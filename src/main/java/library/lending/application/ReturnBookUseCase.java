@@ -1,13 +1,10 @@
 package library.lending.application;
 
-import library.UseCase;
 import library.lending.domain.Loan;
 import library.lending.domain.LoanId;
 import library.lending.domain.LoanRepository;
 
-@UseCase
 public class ReturnBookUseCase {
-
 
     private final LoanRepository loanRepository;
 
@@ -16,7 +13,8 @@ public class ReturnBookUseCase {
     }
 
     public void execute(LoanId loanId) {
-        Loan loan = loanRepository.findByIdOrThrow(loanId);
+        Loan loan = loanRepository.findById(loanId);
         loan.returned();
+        loanRepository.save(loan);
     }
 }

@@ -1,12 +1,8 @@
 package library.lending.application;
 
-import library.UseCase;
-import library.lending.domain.CopyId;
-import library.lending.domain.Loan;
-import library.lending.domain.LoanRepository;
-import library.lending.domain.UserId;
+import library.lending.domain.*;
+import org.springframework.util.Assert;
 
-@UseCase
 public class RentBookUseCase {
     private final LoanRepository loanRepository;
 
@@ -14,8 +10,9 @@ public class RentBookUseCase {
         this.loanRepository = loanRepository;
     }
 
-    public void execute(CopyId copyId, UserId userId) {
-        // TODO: ensure rented copy is not rented again
-        loanRepository.save(new Loan(copyId, userId, loanRepository));
+    public void execute(CopyId copyId, Borrower borrower, LoanPeriod.PeriodType periodType) {
+        Assert.isTrue(loanRepository.isAvailable(copyId), "copy with id = " + copyId + " is not available");
+        Loan loan = new Loan(copyId, borrower, periodType);
+        loanRepository.save(loan);
     }
 }

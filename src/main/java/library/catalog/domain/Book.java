@@ -1,26 +1,13 @@
 package library.catalog.domain;
 
-import jakarta.persistence.AttributeOverride;
-import jakarta.persistence.AttributeOverrides;
-import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
 import org.springframework.util.Assert;
 
 import java.util.Objects;
 
-@Entity
 public class Book {
-    @EmbeddedId
-    private BookId id;
-    private String title;
-    @Embedded
-    @AttributeOverride(name = "value", column = @Column(name = "isbn"))
-    private Isbn isbn;
-
-    Book() {
-    }
+    private final BookId id;
+    private final String title;
+    private final Isbn isbn;
 
     public Book(String title, Isbn isbn) {
         Assert.notNull(title, "title must not be null");
@@ -28,6 +15,16 @@ public class Book {
         this.id = new BookId();
         this.title = title;
         this.isbn = isbn;
+    }
+
+    Book(BookId id, String title, Isbn isbn) {
+        this.id = id;
+        this.title = title;
+        this.isbn = isbn;
+    }
+
+    public static Book reconstitute(BookId id, String title, Isbn isbn) {
+        return new Book(id, title, isbn);
     }
 
     public BookId getId() {

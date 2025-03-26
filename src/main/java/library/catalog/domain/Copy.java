@@ -1,25 +1,14 @@
 package library.catalog.domain;
 
-import jakarta.persistence.AttributeOverride;
-import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
 import org.springframework.util.Assert;
 
-@Entity
-public class Copy {
-    @EmbeddedId
-    private CopyId id;
-    @Embedded
-    @AttributeOverride(name = "id", column = @Column(name = "book_id"))
-    private BookId bookId;
-    @Embedded
-    private BarCode barCode;
-    private boolean available;
+import java.util.Objects;
 
-    Copy() {
-    }
+public class Copy {
+    private final CopyId id;
+    private final BookId bookId;
+    private final BarCode barCode;
+    private boolean available;
 
     public Copy(BookId bookId, BarCode barCode) {
         Assert.notNull(bookId, "bookId must not be null");
@@ -30,11 +19,50 @@ public class Copy {
         this.available = true;
     }
 
+    Copy(CopyId id, BookId bookId, BarCode barCode, boolean available) {
+        this.id = id;
+        this.bookId = bookId;
+        this.barCode = barCode;
+        this.available = available;
+    }
+
+    public static Copy reconstitute(CopyId id, BookId bookId, BarCode barCode, boolean available) {
+        return new Copy(id, bookId, barCode, available);
+    }
+
     public void makeUnavailable() {
         this.available = false;
     }
 
     public void makeAvailable() {
         this.available = true;
+    }
+
+    public CopyId getId() {
+        return id;
+    }
+
+    public BookId getBookId() {
+        return bookId;
+    }
+
+    public BarCode getBarCode() {
+        return barCode;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Copy copy = (Copy) o;
+        return Objects.equals(id, copy.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }

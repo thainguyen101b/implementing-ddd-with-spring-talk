@@ -13,4 +13,9 @@ public record CopyId(UUID id) {
     public CopyId() {
         this(UUID.randomUUID());
     }
+
+    public static CopyId fromUUID(UUID uuid) {
+        Assert.notNull(uuid, "copy id must not be null");
+        return new CopyId(uuid);
+    }
 }

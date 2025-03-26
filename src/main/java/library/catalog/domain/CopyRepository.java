@@ -1,6 +1,9 @@
 package library.catalog.domain;
 
-import org.springframework.data.repository.CrudRepository;
+public interface CopyRepository {
 
-public interface CopyRepository extends CrudRepository<Copy, CopyId> {
+    void save(Copy copy);
+
+    Copy findById(CopyId id);
+
 }

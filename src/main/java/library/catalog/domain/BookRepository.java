@@ -1,6 +1,9 @@
 package library.catalog.domain;
 
-import org.springframework.data.repository.CrudRepository;
+public interface BookRepository {
 
-public interface BookRepository extends CrudRepository<Book, BookId> {
+    void save(Book book);
+
+    Book findByIsbn(Isbn isbn);
+
 }

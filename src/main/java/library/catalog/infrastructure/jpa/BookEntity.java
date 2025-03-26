@@ -3,6 +3,7 @@ package library.catalog.infrastructure.jpa;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import library.catalog.domain.Book;
 import library.catalog.domain.BookId;
 import library.catalog.domain.Isbn;
@@ -10,6 +11,7 @@ import library.catalog.domain.Isbn;
 import java.util.UUID;
 
 @Entity
+@Table(name = "book")
 public class BookEntity {
     @Id
     @Column(nullable = false)

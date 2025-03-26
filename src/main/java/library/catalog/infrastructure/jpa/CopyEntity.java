@@ -3,6 +3,7 @@ package library.catalog.infrastructure.jpa;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import library.catalog.domain.BarCode;
 import library.catalog.domain.BookId;
 import library.catalog.domain.Copy;
@@ -11,6 +12,7 @@ import library.catalog.domain.CopyId;
 import java.util.UUID;
 
 @Entity
+@Table(name = "copy")
 public class CopyEntity {
     @Id
     @Column(nullable = false)

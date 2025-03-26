@@ -3,6 +3,7 @@ package library.lending.infrastructure.jpa;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import library.lending.domain.*;
 import org.springframework.data.domain.AbstractAggregateRoot;
 
@@ -12,6 +13,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
+@Table(name = "loan")
 public class LoanEntity extends AbstractAggregateRoot<LoanEntity> {
 
     @Id

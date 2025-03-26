@@ -1,5 +1,6 @@
 package library.catalog.infrastructure.jpa;
 
+import library.catalog.domain.BarCode;
 import library.catalog.domain.Copy;
 import library.catalog.domain.CopyId;
 import library.catalog.domain.CopyRepository;
@@ -22,6 +23,12 @@ public class CopyRepositoryAdapter implements CopyRepository {
     @Override
     public Copy findById(CopyId id) {
         CopyEntity entity = repository.findById(id.id()).orElseThrow();
+        return entity.toCopy();
+    }
+
+    @Override
+    public Copy findByBarCode(BarCode barCode) {
+        CopyEntity entity = repository.findByBarCode(barCode.code()).orElseThrow();
         return entity.toCopy();
     }
 }

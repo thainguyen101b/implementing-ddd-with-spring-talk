@@ -6,4 +6,6 @@ public interface CopyRepository {
 
     Copy findById(CopyId id);
 
+    Copy findByBarCode(BarCode barCode);
+
 }
